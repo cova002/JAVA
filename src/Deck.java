@@ -1,18 +1,50 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
 public class Deck {
+    public static Scanner reader = new Scanner(System.in);
     public static Random random= new Random();
    public static Card card=new Card();
     public static void main(String[] args) {
-        card.iniciar();
-        suffle();
-        head();
-        pick();
-        hand();
-    }
 
+            showMenu();
+    }
+    public static void showMenu(){
+        int opcion=0;
+        do{
+            card.iniciar();
+            System.out.println("Bienvenido a Poker!");
+            System.out.println("Selecciona una opción:");
+            System.out.println("1 Mezclar deck:");
+            System.out.println("2 Sacar una carta");
+            System.out.println("3 Carta al azar");
+            System.out.println("4 Generar una mano de 5 cartas");
+            System.out.println("0 Salir");
+            opcion = reader.nextInt();
+
+            switch (opcion) {
+                case 0:
+                    System.exit(0);
+                    break;
+                case 1:
+                    suffle();
+                    break;
+                case 2:
+                    head();
+                    break;
+                case 3:
+                    pick();
+                    break;
+                case 4:
+                    hand();
+                    break;
+                default:
+                    System.out.println("Opción no válida");
+                    break;
+            }
+        }
+        while(opcion>0);
+
+    }
     public static void suffle(){
         Collections.shuffle(card.cards);
         System.out.println();
