@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class Deck {
@@ -5,13 +8,16 @@ public class Deck {
     public static Random random= new Random();
    public static Card card=new Card();
     public static void main(String[] args) {
-
+        card.iniciar();
             showMenu();
     }
     public static void showMenu(){
         int opcion=0;
+        boolean d=true;
         do{
-            card.iniciar();
+
+            try {
+
             System.out.println("Bienvenido a Poker!");
             System.out.println("Selecciona una opción:");
             System.out.println("1 Mezclar deck:");
@@ -41,8 +47,12 @@ public class Deck {
                     System.out.println("Opción no válida");
                     break;
             }
+            } catch (InputMismatchException ex) {
+                System.out.println("Opción no válida");
+                reader.next();
+            }
         }
-        while(opcion>0);
+        while(d==true);
 
     }
     public static void suffle(){
@@ -54,21 +64,42 @@ public class Deck {
     public static void head(){
         System.out.println(card.cards.get(0));
         card.cards.remove(0);
-        System.out.println("Quedan "+ card.cards.size()+" cartas");
-        System.out.println();System.out.println();
+        int cantidad=card.cards.size();
+        if(cantidad==0){
+            System.out.println("Se han agotado las cartas");
+            System.exit(0);
+        }else {
+            System.out.println("Quedan " + card.cards.size() + " cartas");
+            System.out.println();
+
+        }
     }
     public static void pick(){
         int carta=random.nextInt(card.cards.size());
         System.out.println(card.cards.get(carta));
         card.cards.remove(carta);
-        System.out.println("Quedan "+ card.cards.size()+" cartas");System.out.println();System.out.println();
+        int cantidad=card.cards.size();
+        if(cantidad==0){
+            System.out.println("Se han agotado las cartas");
+            System.exit(0);
+        }else {
+            System.out.println("Quedan " + card.cards.size() + " cartas");
+            System.out.println();
+
+        }
     }
     public static void hand(){
         for(int i=0;i<5;i++){
             int carta=random.nextInt(card.cards.size());
             System.out.println(card.cards.get(carta));
             card.cards.remove(carta);
+            int cantidad=card.cards.size();
+            if(cantidad==0){
+                System.out.println("Se han agotado las cartas");
+                System.exit(0);
+            }
         }
         System.out.println("Quedan "+ card.cards.size()+" cartas");
     }
+
 }
